@@ -1,13 +1,13 @@
 # Plataforma de Aprendizado Imersivo de Língua Inglesa
+
 ---
 
-**Trabalho de Conclusão de Curso (TCC)**
-**Autor:** Thiago Trzcinski
-**Instituição:** IFC Campus Videira
-**Curso:** Ciência da Computação
-**Ano:** 2025
-**Orientador:** MSc. Fábio José Rodrigues Pi-
-nheiro
+**Trabalho de Conclusão de Curso (TCC)**<br>
+**Autor:** Thiago Trzcinski<br>
+**Instituição:** IFC Campus Videira<br>
+**Curso:** Ciência da Computação<br>
+**Ano:** 2025<br>
+**Orientador:** MSc. Fábio José Rodrigues Pinheiro<br>
 **Coorientador:** MSc. Thiago Barbosa Silva
 
 ---
@@ -31,39 +31,47 @@ A arquitetura técnica segue princípios de Clean Architecture e Domain-Driven D
 ### 2.1 Stack Tecnológico Principal
 
 #### Backend e Runtime
+
 - **Node.js**: Ambiente de execução JavaScript server-side
 - **TypeScript**: Superset tipado de JavaScript para maior segurança e produtividade
 - **Express.js**: Framework web minimalista e flexível para Node.js
 
 #### Banco de Dados
+
 - **PostgreSQL**: Sistema de gerenciamento de banco de dados relacional robusto
 - **TypeORM**: ORM (Object-Relational Mapping) para TypeScript e JavaScript
 
 #### Provedores de Inteligência Artificial
+
 - **Mocked AI Provider**: Provedor simulado para testes e desenvolvimento, retornando respostas determinísticas para texto, imagem e áudio
 
 **Nota:** O sistema foi arquitetado para suportar múltiplos provedores de IA (OpenAI, Anthropic, Google, Stability AI, ElevenLabs), mas atualmente apenas o provedor MOCKED está implementado. A arquitetura modular permite adicionar novos provedores seguindo a interface `IAIProvider`.
 
 #### Autenticação e Segurança
+
 - **JSON Web Tokens (JWT)**: Autenticação stateless e segura
 - **bcrypt**: Hashing de senhas com salt
 
 #### Documentação e Testes
+
 - **Swagger/OpenAPI**: Documentação interativa de API
 - **Jest**: Framework de testes com suporte a TypeScript
 - **Supertest**: Testes de integração HTTP
 
 #### Injeção de Dependências e Arquitetura
+
 - **TSyringe**: Container de injeção de dependências leve para TypeScript
 - **Reflect Metadata**: Suporte a decorators e metadados
 
 #### Ferramentas de Desenvolvimento
+
 - **ts-node-dev**: Desenvolvimento com hot-reload
 - **Prettier**: Formatação consistente de código
 - **ESLint**: Análise estática de código
 - **Winston**: Sistema de logging estruturado
 
 #### Bibliotecas Auxiliares
+
 - **Axios**: Cliente HTTP para requisições a APIs externas
 - **Lodash**: Utilitários JavaScript
 - **UUID**: Geração de identificadores únicos
@@ -71,6 +79,7 @@ A arquitetura técnica segue princípios de Clean Architecture e Domain-Driven D
 - **class-transformer**: Transformação de objetos
 
 ### 2.2 Infraestrutura e DevOps
+
 - **Git**: Controle de versão
 - **pnpm**: Gerenciador de pacotes eficiente
 - **PostgreSQL**: Banco de dados relacional
@@ -86,17 +95,20 @@ O projeto implementa os princípios de Clean Architecture, organizando o código
 **Camadas da Arquitetura:**
 
 1. **Domain (Domínio)**: Núcleo da aplicação contendo regras de negócio
+
    - Entidades de domínio independentes de frameworks
    - Value Objects para conceitos do domínio
    - Interfaces de repositórios e serviços
    - Regras de negócio puras
 
 2. **Application (Aplicação)**: Casos de uso e orquestração
+
    - Serviços de aplicação que coordenam operações
    - DTOs (Data Transfer Objects) para comunicação entre camadas
    - Lógica de orquestração de IA
 
 3. **Infrastructure (Infraestrutura)**: Implementações técnicas
+
    - Repositórios concretos com TypeORM
    - Implementações de serviços de IA
    - Integrações com APIs externas
@@ -138,7 +150,7 @@ Utilização de TSyringe para implementar Inversão de Controle (IoC):
 - **S**ingle Responsibility: Cada classe tem uma única responsabilidade
 - **O**pen/Closed: Aberto para extensão, fechado para modificação
 - **L**iskov Substitution: Subtipos substituíveis por seus tipos base
-- **I**nterface Segregation**: Interfaces específicas ao invés de genéricas
+- **I**nterface Segregation\*\*: Interfaces específicas ao invés de genéricas
 - **D**ependency Inversion: Dependência de abstrações, não de implementações
 
 ### 3.6 Test-Driven Development (TDD)
@@ -358,12 +370,12 @@ http://localhost:3000/api-docs
 ```
 
 A documentação Swagger permite:
+
 - Visualizar todos os endpoints disponíveis
 - Testar requisições diretamente no navegador
 - Ver schemas de requisição e resposta
 - Entender códigos de status HTTP
 - Explorar modelos de dados
-
 
 ---
 
@@ -376,6 +388,7 @@ A documentação Swagger permite:
 O sistema implementa um serviço de orquestração (`AIOrchestrationService`) que gerencia múltiplos provedores de IA de forma transparente:
 
 **Características:**
+
 - **Seleção Automática**: Escolhe o melhor provedor baseado em tipo de conteúdo e requisitos
 - **Fallback Inteligente**: Se um provedor falhar, tenta automaticamente outro
 - **Balanceamento de Carga**: Distribui requisições entre provedores disponíveis
@@ -387,14 +400,15 @@ O sistema implementa um serviço de orquestração (`AIOrchestrationService`) qu
 #### Provedor Mockado (MOCKED)
 
 O sistema atualmente implementa apenas o provedor mockado (`MockedAIService`) que:
+
 - **Não requer chaves de API** - Funciona imediatamente após instalação
 - **Retorna respostas determinísticas** - Ideal para testes automatizados
 - **Suporta todos os tipos de geração** - Texto, imagem (URLs simuladas) e áudio (URLs simuladas)
 - **Simula progressão de história** - 5 segmentos de história pré-definidos com escolhas
 - **Permite testar toda a funcionalidade** - Sem custos de API
 
-
 **Capacidades:**
+
 - Geração de texto narrativo em inglês
 - URLs simuladas para imagens contextualizadas
 - URLs simuladas para áudio/narração
@@ -402,6 +416,7 @@ O sistema atualmente implementa apenas o provedor mockado (`MockedAIService`) qu
 - Estimativa de custos (valores mockados)
 
 **Uso Recomendado:**
+
 - Desenvolvimento local
 - Testes automatizados (unitários e E2E)
 - Demonstrações sem custos de API
@@ -412,15 +427,18 @@ O sistema atualmente implementa apenas o provedor mockado (`MockedAIService`) qu
 A arquitetura do sistema foi projetada para suportar múltiplos provedores de IA através da interface `IAIProvider`. Os seguintes provedores estão planejados para implementação futura:
 
 **Geração de Texto:**
+
 - OpenAI GPT-4 - Para narrativas adaptativas com controle de complexidade
 - Anthropic Claude 3 - Para diálogos naturais e nuances culturais
 - Google Gemini Pro - Opção custo-efetiva
 
 **Geração de Imagens:**
+
 - Stability AI (Stable Diffusion) - Ilustrações contextualizadas
 - DALL-E 3 - Imagens de alta qualidade
 
 **Geração de Áudio:**
+
 - ElevenLabs - Text-to-speech com vozes nativas em inglês
 
 ---
@@ -430,6 +448,7 @@ A arquitetura do sistema foi projetada para suportar múltiplos provedores de IA
 ### 8.1 Schema do Banco de Dados
 
 #### Tabela: stories
+
 ```sql
 CREATE TABLE stories (
     id UUID PRIMARY KEY,
@@ -451,6 +470,7 @@ CREATE TABLE stories (
 ```
 
 #### Tabela: story_content
+
 ```sql
 CREATE TABLE story_content (
     id UUID PRIMARY KEY,
@@ -467,6 +487,7 @@ CREATE TABLE story_content (
 ```
 
 #### Tabela: story_choices
+
 ```sql
 CREATE TABLE story_choices (
     id UUID PRIMARY KEY,
@@ -485,6 +506,7 @@ CREATE TABLE story_choices (
 ```
 
 #### Tabela: users
+
 ```sql
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -508,6 +530,7 @@ story_content (1) ──< (N) story_choices
 ### 8.3 Enumerações
 
 **StoryStatus:**
+
 - `DRAFT`: História em criação
 - `IN_PROGRESS`: História sendo jogada
 - `COMPLETED`: História finalizada
@@ -515,6 +538,7 @@ story_content (1) ──< (N) story_choices
 - `ARCHIVED`: História arquivada
 
 **StoryGenre:**
+
 - `FANTASY`: Fantasia
 - `SCI_FI`: Ficção Científica
 - `MYSTERY`: Mistério
@@ -526,12 +550,14 @@ story_content (1) ──< (N) story_choices
 - `CUSTOM`: Personalizado
 
 **ContentType:**
+
 - `TEXT`: Conteúdo textual
 - `IMAGE`: Imagem
 - `AUDIO`: Áudio/Narração
 - `COMBINED`: Múltiplos tipos
 
 **ChoiceType:**
+
 - `NARRATIVE`: Escolha narrativa
 - `DIALOGUE`: Escolha de diálogo
 - `ACTION`: Escolha de ação
@@ -548,18 +574,20 @@ story_content (1) ──< (N) story_choices
 O projeto implementa uma estratégia abrangente de testes em três níveis:
 
 #### Testes Unitários
+
 - **Escopo**: Lógica de negócio isolada, entidades de domínio, value objects
 - **Framework**: Jest com ts-jest
 - **Cobertura**: Mínimo 80% de cobertura de código
 
 #### Testes de Integração
+
 - **Escopo**: Interação entre camadas, repositórios com banco de dados
 - **Framework**: Jest com banco de dados de teste
 
 #### Testes End-to-End (E2E)
+
 - **Escopo**: Fluxos completos da aplicação via HTTP
 - **Framework**: Jest + Supertest
-
 
 ### 9.2 Mocks
 
@@ -571,7 +599,6 @@ O projeto utiliza mocks para isolar dependências externas:
 
 ---
 
-
 ## 10. Desenvolvimento e Extensibilidade
 
 ### 10.1 Adicionando Novos Provedores de IA
@@ -582,16 +609,20 @@ Para integrar um novo provedor de IA ao sistema:
 
 ```typescript
 // src/infrastructure/services/ai-providers/novo-provider.service.ts
-import { injectable } from 'tsyringe';
-import { IAIProvider } from '../../../domain/interfaces/ai-provider.interface';
+import { injectable } from "tsyringe";
+import { IAIProvider } from "../../../domain/interfaces/ai-provider.interface";
 
 @injectable()
 export class NovoProviderService implements IAIProvider {
-  async generateText(request: TextGenerationRequest): Promise<AIGenerationResult> {
+  async generateText(
+    request: TextGenerationRequest,
+  ): Promise<AIGenerationResult> {
     // Implementar lógica de geração
   }
 
-  async generateImage(request: ImageGenerationRequest): Promise<AIGenerationResult> {
+  async generateImage(
+    request: ImageGenerationRequest,
+  ): Promise<AIGenerationResult> {
     // Implementar lógica de geração
   }
 
@@ -607,7 +638,7 @@ export const aiProviderConfig = {
   novoProvider: {
     apiKey: process.env.NOVO_PROVIDER_API_KEY,
     model: process.env.NOVO_PROVIDER_MODEL,
-    enabled: process.env.NOVO_PROVIDER_ENABLED === 'true',
+    enabled: process.env.NOVO_PROVIDER_ENABLED === "true",
   },
 };
 ```
@@ -616,7 +647,7 @@ export const aiProviderConfig = {
 
 ```typescript
 // src/infra/container/services.ts
-container.register<IAIProvider>('NovoProvider', {
+container.register<IAIProvider>("NovoProvider", {
   useClass: NovoProviderService,
 });
 ```
@@ -632,11 +663,10 @@ container.register<IAIProvider>('NovoProvider', {
 
 ```typescript
 // src/tests/infrastructure/novo-provider.service.test.ts
-describe('NovoProviderService', () => {
+describe("NovoProviderService", () => {
   // Implementar testes
 });
 ```
-
 
 ### 10.2 Boas Práticas de Desenvolvimento
 
@@ -680,12 +710,14 @@ describe('NovoProviderService', () => {
 ### 12.1 Limitações Atuais
 
 **Pedagógicas:**
+
 - Sistema de avaliação de nível ainda não implementado (requer testes de proficiência)
 - Feedback linguístico limitado (sem correção gramatical automática)
 - Ausência de exercícios complementares (foco apenas em narrativas)
 - Sem rastreamento detalhado de aquisição de vocabulário individual
 
 **Técnicas:**
+
 - **Apenas provedor MOCKED implementado** - Provedores de IA reais (OpenAI, Anthropic, Google, etc.) não estão implementados
 - **Sem containerização Docker** - Dockerfile e docker-compose não incluídos no projeto
 - Interface web não incluída (apenas API backend)
@@ -693,6 +725,7 @@ describe('NovoProviderService', () => {
 - Suporte limitado a WebSockets para interação em tempo real
 
 **Linguísticas:**
+
 - Foco exclusivo em inglês (outros idiomas não implementados)
 - Sem suporte a variações dialetais específicas
 - Ausência de análise de erros comuns por língua materna do estudante
@@ -700,6 +733,7 @@ describe('NovoProviderService', () => {
 ### 12.2 Melhorias Futuras
 
 **Funcionalidades Pedagógicas:**
+
 - [ ] **Sistema de Avaliação de Proficiência**: Teste adaptativo para determinar nível CEFR inicial
 - [ ] **Feedback Linguístico Inteligente**: Correção contextualizada de erros com explicações
 - [ ] **Rastreamento de Vocabulário**: Sistema de spaced repetition para palavras aprendidas
@@ -710,6 +744,7 @@ describe('NovoProviderService', () => {
 - [ ] **Pronúncia e Speaking**: Reconhecimento de fala para prática de produção oral
 
 **Expansão Linguística:**
+
 - [ ] **Múltiplos Idiomas**: Adaptação para espanhol, francês, alemão, mandarim, etc.
 - [ ] **Variações Dialetais**: Suporte a diferentes sotaques e variantes regionais
 - [ ] **Análise Contrastiva**: Adaptação baseada na língua materna do estudante
@@ -717,6 +752,7 @@ describe('NovoProviderService', () => {
 - [ ] **Registro Linguístico**: Exposição a diferentes níveis de formalidade
 
 **Gamificação Avançada:**
+
 - [ ] **Sistema de Conquistas**: Badges por marcos de aprendizado
 - [ ] **Ranking e Competição**: Leaderboards entre estudantes
 - [ ] **Missões Diárias**: Desafios para manter engajamento
@@ -724,6 +760,7 @@ describe('NovoProviderService', () => {
 - [ ] **Modo Colaborativo**: Histórias em grupo para prática social
 
 **Técnicas e Infraestrutura:**
+
 - [ ] **Implementação de Provedores de IA Reais**: OpenAI GPT-4, Anthropic Claude, Google Gemini, Stability AI, ElevenLabs
 - [ ] **Containerização Docker**: Dockerfile e docker-compose para deploy simplificado
 - [ ] **Interface Web Completa**: Frontend React/Vue para experiência do usuário
@@ -737,6 +774,7 @@ describe('NovoProviderService', () => {
 - [ ] **Monitoramento Avançado**: Prometheus, Grafana, ELK Stack
 
 **Pesquisa e Validação:**
+
 - [ ] **Estudos de Eficácia**: Pesquisa empírica sobre ganhos de proficiência
 - [ ] **A/B Testing**: Comparação de diferentes abordagens pedagógicas
 - [ ] **Análise de Corpus**: Estudo de padrões de erro e aquisição
@@ -774,6 +812,7 @@ Este projeto demonstra com sucesso a implementação de uma **plataforma educaci
 O desenvolvimento deste TCC proporcionou aprendizado prático e teórico em múltiplas dimensões:
 
 **Técnicos:**
+
 - Arquitetura de software em larga escala para aplicações educacionais
 - Design de arquitetura extensível para integração com múltiplas APIs de IA generativa
 - Desenvolvimento backend com TypeScript e Node.js
@@ -783,6 +822,7 @@ O desenvolvimento deste TCC proporcionou aprendizado prático e teórico em múl
 - Prompt engineering para geração de conteúdo educacional
 
 **Pedagógicos e Linguísticos:**
+
 - Teorias de aquisição de segunda língua (Krashen, Long)
 - Princípios de design instrucional e aprendizado adaptativo
 - Multimodalidade e Teoria da Codificação Dupla
@@ -790,6 +830,7 @@ O desenvolvimento deste TCC proporcionou aprendizado prático e teórico em múl
 - Avaliação de proficiência linguística e progressão
 
 **Interdisciplinares:**
+
 - Integração de conhecimentos de Computação, Linguística e Educação
 - Tradução de teorias pedagógicas em requisitos técnicos
 - Balanceamento entre rigor acadêmico e viabilidade técnica
@@ -797,43 +838,12 @@ O desenvolvimento deste TCC proporcionou aprendizado prático e teórico em múl
 
 ---
 
-
 ## 14. Informações do Autor
 
-**Nome:** Thiago Trzcinski
-**Email:** [thiagotrzcinski7878@gmail.com]
-**LinkedIn:** [linkedin.com/in/thiago-trzcinski]
+**Nome:** Thiago Trzcinski<br>
+**Email:** [thiagotrzcinski7878@gmail.com]<br>
+**LinkedIn:** [linkedin.com/in/thiago-trzcinski]<br>
 **GitHub:** [github.com/thiago-trzcinski]
-
----
-
-## 15. Licença
-
-Este projeto foi desenvolvido como Trabalho de Conclusão de Curso e está licenciado sob a **MIT License**.
-
-```
-MIT License
-
-Copyright (c) 2024 Thiago Trzcinski
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
 
 ---
 
