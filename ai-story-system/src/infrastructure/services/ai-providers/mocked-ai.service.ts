@@ -22,125 +22,125 @@ export class MockedAIService implements IAIProvider {
    */
   private readonly mockStorySegments = [
     {
-      content: `Era uma vez, em um reino distante chamado Eldoria, onde a magia fluía através das montanhas cobertas de neve e florestas encantadas. A jovem princesa Lyra descobriu um antigo pergaminho em sua biblioteca, revelando a existência de um artefato perdido conhecido como o Cristal da Harmonia. Este cristal tinha o poder de restaurar o equilíbrio entre os reinos mágicos que estavam em guerra há décadas.
+      content: `Once upon a time, in a distant kingdom called Eldoria, magic flowed through snow-covered mountains and enchanted forests. Young Princess Lyra discovered an ancient scroll in her library, revealing the existence of a lost artifact known as the Crystal of Harmony. This crystal had the power to restore balance between the magical kingdoms that had been at war for decades.
 
-Determinada a trazer paz para seu povo, Lyra decidiu embarcar em uma jornada perigosa para encontrar o cristal. Ela sabia que não poderia fazer isso sozinha, então reuniu um grupo de companheiros leais: Kael, um guerreiro élfico habilidoso com a espada; Mira, uma maga especialista em feitiços de proteção; e Thorin, um anão conhecedor dos segredos das montanhas antigas.`,
+Determined to bring peace to her people, Lyra decided to embark on a dangerous journey to find the crystal. She knew she couldn't do this alone, so she gathered a group of loyal companions: Kael, a skilled elven warrior with the sword; Mira, a mage who specialized in protection spells; and Thorin, a dwarf who knew the secrets of the ancient mountains.`,
       hasChoices: true,
       choices: [
         {
-          text: 'Partir imediatamente para a Floresta Sombria',
-          description: 'Seguir a primeira pista do pergaminho sem demora',
+          text: 'Leave immediately for the Dark Forest',
+          description: 'Follow the first clue from the scroll without delay',
           type: 'action',
         },
         {
-          text: 'Reunir mais informações na biblioteca',
+          text: 'Gather more information in the library',
           description:
-            'Pesquisar mais sobre o Cristal da Harmonia antes de partir',
+            'Research more about the Crystal of Harmony before leaving',
           type: 'exploration',
         },
         {
-          text: 'Recrutar mais companheiros',
-          description: 'Buscar outros heróis para fortalecer o grupo',
+          text: 'Recruit more companions',
+          description: 'Seek other heroes to strengthen the group',
           type: 'relationship',
         },
         {
-          text: 'Consultar o conselho real',
-          description: 'Pedir orientação aos sábios do reino',
+          text: 'Consult the royal council',
+          description: 'Ask for guidance from the wise ones of the kingdom',
           type: 'dialogue',
         },
       ],
     },
     {
-      content: `A primeira pista do pergaminho levou o grupo à Floresta Sombria, um lugar onde poucos se aventuravam e ainda menos retornavam. As árvores sussurravam segredos antigos, e criaturas místicas observavam cada movimento do grupo. Conforme avançavam mais profundamente na floresta, encontraram ruínas de uma civilização perdida, onde símbolos mágicos brilhavam fracamente nas pedras cobertas de musgo.
+      content: `The first clue from the scroll led the group to the Dark Forest, a place where few ventured and even fewer returned. The trees whispered ancient secrets, and mystical creatures watched every movement of the group. As they advanced deeper into the forest, they found ruins of a lost civilization, where magical symbols glowed faintly on moss-covered stones.
 
-Mira examinou os símbolos com cuidado, reconhecendo alguns como sendo da antiga linguagem élfica. "Estes símbolos falam de uma prova", ela murmurou. "Apenas aqueles puros de coração podem prosseguir." Suddenly, o chão começou a tremer, e uma voz etérea ecoou pelas ruínas: "Quem ousa perturbar o descanso dos antigos?"`,
+Mira examined the symbols carefully, recognizing some as being from the ancient elven language. "These symbols speak of a trial," she murmured. "Only those pure of heart may proceed." Suddenly, the ground began to shake, and an ethereal voice echoed through the ruins: "Who dares disturb the rest of the ancients?"`,
       hasChoices: true,
       choices: [
         {
-          text: 'Explorar as ruínas antigas',
+          text: 'Explore the ancient ruins',
           description:
-            'Investigar os símbolos mágicos e buscar pistas sobre o cristal',
+            'Investigate the magical symbols and search for clues about the crystal',
           type: 'exploration',
         },
         {
-          text: 'Responder à voz misteriosa',
-          description: 'Tentar se comunicar com a entidade que falou',
+          text: 'Answer the mysterious voice',
+          description: 'Try to communicate with the entity that spoke',
           type: 'dialogue',
         },
         {
-          text: 'Recuar e procurar outro caminho',
-          description: 'Evitar o confronto e buscar uma rota alternativa',
+          text: 'Retreat and look for another path',
+          description: 'Avoid confrontation and seek an alternative route',
           type: 'strategic',
         },
         {
-          text: 'Preparar-se para o combate',
-          description: 'Assumir uma postura defensiva e se preparar para lutar',
+          text: 'Prepare for combat',
+          description: 'Take a defensive stance and prepare to fight',
           type: 'action',
         },
       ],
     },
     {
-      content: `Uma figura espectral emergiu das ruínas - um antigo guardião élfico que protegia os segredos da floresta há milênios. Seus olhos brilhavam com sabedoria ancestral enquanto observava o grupo. "Vejo que buscam o Cristal da Harmonia", disse ele com uma voz que ecoava como vento entre as folhas. "Muitos vieram antes de vocês, mas poucos provaram ser dignos."
+      content: `A spectral figure emerged from the ruins - an ancient elven guardian who had protected the secrets of the forest for millennia. His eyes glowed with ancestral wisdom as he observed the group. "I see that you seek the Crystal of Harmony," he said with a voice that echoed like wind through the leaves. "Many have come before you, but few have proven worthy."
 
-O guardião apontou para três caminhos que se abriram magicamente diante deles. "Cada caminho testará uma virtude diferente. O Caminho da Coragem os levará através do Vale dos Dragões Adormecidos. O Caminho da Sabedoria passa pela Biblioteca Flutuante dos Magos Antigos. E o Caminho da Compaixão atravessa a Vila dos Espíritos Perdidos, onde almas atormentadas buscam paz."`,
+The guardian pointed to three paths that magically opened before them. "Each path will test a different virtue. The Path of Courage will take you through the Valley of Sleeping Dragons. The Path of Wisdom passes through the Floating Library of the Ancient Mages. And the Path of Compassion crosses the Village of Lost Spirits, where tormented souls seek peace."`,
       hasChoices: true,
       choices: [
         {
-          text: 'Escolher o Caminho da Coragem',
-          description: 'Enfrentar os dragões adormecidos no vale perigoso',
+          text: 'Choose the Path of Courage',
+          description: 'Face the sleeping dragons in the dangerous valley',
           type: 'action',
         },
         {
-          text: 'Escolher o Caminho da Sabedoria',
-          description: 'Buscar conhecimento na biblioteca mágica flutuante',
+          text: 'Choose the Path of Wisdom',
+          description: 'Seek knowledge in the floating magical library',
           type: 'exploration',
         },
         {
-          text: 'Escolher o Caminho da Compaixão',
-          description: 'Ajudar as almas perdidas a encontrar paz',
+          text: 'Choose the Path of Compassion',
+          description: 'Help the lost souls find peace',
           type: 'moral',
         },
         {
-          text: 'Pedir para dividir o grupo',
-          description: 'Sugerir que cada membro tome um caminho diferente',
+          text: 'Ask to split the group',
+          description: 'Suggest that each member takes a different path',
           type: 'strategic',
         },
       ],
     },
     {
-      content: `Após superar as provações do caminho escolhido, o grupo finalmente chegou ao Santuário do Cristal da Harmonia. O local era de uma beleza indescritível - cristais de todas as cores do arco-íris cresciam das paredes, criando uma sinfonia de luz e som que tocava a alma. No centro do santuário, suspenso no ar por magia antiga, estava o Cristal da Harmonia, pulsando com uma energia que parecia conectar todos os seres vivos.
+      content: `After overcoming the trials of the chosen path, the group finally reached the Sanctuary of the Crystal of Harmony. The place was of indescribable beauty - crystals of all the colors of the rainbow grew from the walls, creating a symphony of light and sound that touched the soul. In the center of the sanctuary, suspended in the air by ancient magic, was the Crystal of Harmony, pulsing with an energy that seemed to connect all living beings.
 
-Mas eles não estavam sozinhos. Sombras começaram a se materializar ao redor do santuário - os Guardiões das Trevas, antigos inimigos da harmonia que buscavam destruir o cristal para sempre. A batalha final estava prestes a começar, e o destino de todos os reinos mágicos dependia das escolhas que fariam nos próximos momentos.`,
+But they were not alone. Shadows began to materialize around the sanctuary - the Guardians of Darkness, ancient enemies of harmony who sought to destroy the crystal forever. The final battle was about to begin, and the fate of all magical kingdoms depended on the choices they would make in the next moments.`,
       hasChoices: true,
       choices: [
         {
-          text: 'Atacar os Guardiões das Trevas',
-          description: 'Partir para o combate direto contra os inimigos',
+          text: 'Attack the Guardians of Darkness',
+          description: 'Engage in direct combat against the enemies',
           type: 'action',
         },
         {
-          text: 'Tentar purificar as sombras',
-          description: 'Usar a magia do cristal para converter os inimigos',
+          text: 'Try to purify the shadows',
+          description: "Use the crystal's magic to convert the enemies",
           type: 'skill_check',
         },
         {
-          text: 'Proteger o cristal',
-          description: 'Formar uma barreira defensiva ao redor do artefato',
+          text: 'Protect the crystal',
+          description: 'Form a defensive barrier around the artifact',
           type: 'strategic',
         },
         {
-          text: 'Negociar com os Guardiões',
-          description: 'Tentar encontrar uma solução pacífica',
+          text: 'Negotiate with the Guardians',
+          description: 'Try to find a peaceful solution',
           type: 'dialogue',
         },
       ],
     },
     {
-      content: `Com o poder do Cristal da Harmonia finalmente em suas mãos, Lyra sentiu uma energia calorosa fluir através de seu ser. O cristal não apenas restaurou o equilíbrio entre os reinos, mas também revelou uma verdade profunda - a verdadeira harmonia não vinha de um artefato mágico, mas da união e compreensão entre todos os povos.
+      content: `With the power of the Crystal of Harmony finally in her hands, Lyra felt a warm energy flow through her being. The crystal not only restored balance between the kingdoms, but also revealed a profound truth - true harmony did not come from a magical artifact, but from the union and understanding between all peoples.
 
-Os Guardiões das Trevas, tocados pela luz do cristal, revelaram-se como antigos protetores que haviam sido corrompidos pela desesperança. Com a harmonia restaurada, eles recuperaram sua forma original e se juntaram à celebração. Os reinos que estiveram em guerra por décadas finalmente encontraram a paz, e Lyra retornou para casa não apenas como uma princesa, mas como uma verdadeira líder que havia aprendido que a maior magia de todas era a capacidade de unir corações e mentes.
+The Guardians of Darkness, touched by the light of the crystal, revealed themselves as ancient protectors who had been corrupted by despair. With harmony restored, they recovered their original form and joined the celebration. The kingdoms that had been at war for decades finally found peace, and Lyra returned home not just as a princess, but as a true leader who had learned that the greatest magic of all was the ability to unite hearts and minds.
 
-E assim, a lenda da Princesa Lyra e o Cristal da Harmonia foi contada por gerações, lembrando a todos que mesmo nas horas mais sombrias, a esperança e a união podem superar qualquer adversidade.`,
+And so, the legend of Princess Lyra and the Crystal of Harmony was told for generations, reminding everyone that even in the darkest hours, hope and unity can overcome any adversity.`,
       hasChoices: false,
       choices: [],
     },
@@ -261,7 +261,7 @@ E assim, a lenda da Princesa Lyra e o Cristal da Harmonia foi contada por geraç
     // Return different responses based on prompt content
     if (
       prompt.toLowerCase().includes('choice') ||
-      prompt.toLowerCase().includes('escolha')
+      prompt.toLowerCase().includes('option')
     ) {
       if (storyId) {
         const segment = this.getSegmentByContentCount(currentContentCount);
@@ -272,18 +272,18 @@ E assim, a lenda da Princesa Lyra e o Cristal da Harmonia foi contada por geraç
 
     if (
       prompt.toLowerCase().includes('continue') ||
-      prompt.toLowerCase().includes('continuar') ||
+      prompt.toLowerCase().includes('next') ||
       prompt.toLowerCase().includes('generate content') ||
-      prompt.toLowerCase().includes('gerar conteúdo') ||
+      prompt.toLowerCase().includes('create story') ||
       prompt.toLowerCase().includes('adventure') ||
-      prompt.toLowerCase().includes('aventura')
+      prompt.toLowerCase().includes('narrative')
     ) {
       if (storyId) {
         // Use the current content count to determine which segment to return
         const segment = this.getSegmentByContentCount(currentContentCount);
         return segment.content;
       }
-      return `${this.mockResponses.storyContent} A história continua com novos desenvolvimentos emocionantes...`;
+      return `${this.mockResponses.storyContent} The story continues with exciting new developments...`;
     }
 
     // Default story content - first segment
@@ -329,7 +329,7 @@ E assim, a lenda da Princesa Lyra e o Cristal da Harmonia foi contada por geraç
 
     if (
       prompt.toLowerCase().includes('character') ||
-      prompt.toLowerCase().includes('personagem')
+      prompt.toLowerCase().includes('person')
     ) {
       return 'https://example.com/mock-character-image.jpg';
     }
@@ -369,14 +369,14 @@ E assim, a lenda da Princesa Lyra e o Cristal da Harmonia foi contada por geraç
       .replace(/[\u0300-\u036f]/g, '');
     if (
       normalizedPrompt.includes('dramatic') ||
-      normalizedPrompt.includes('dramatico')
+      normalizedPrompt.includes('intense')
     ) {
       return 'https://example.com/mock-dramatic-audio.mp3';
     }
 
     if (
       prompt.toLowerCase().includes('calm') ||
-      prompt.toLowerCase().includes('calmo')
+      prompt.toLowerCase().includes('peaceful')
     ) {
       return 'https://example.com/mock-calm-audio.mp3';
     }

@@ -7,9 +7,15 @@ dist/
 build/
 
 # Environment variables
-.env*
+.env
 .env.local
 .env.*.local
+.env.test
+.env.development
+.env.production
+
+# Keep .env.example in repository
+!.env.example
 
 # IDE and editor files
 .idea/
