@@ -28,6 +28,25 @@ const initializeTestDatabase = async () => {
   return testDataSource;
 };
 
+const cleanDatabase = async () => {
+  if (dataSource.isInitialized) {
+    try {
+      const entities = dataSource.entityMetadatas;
+      if (entities.length > 0) {
+        const tableNames = entities
+          .map((entity) => `"${entity.tableName}"`)
+          .join(', ');
+
+        await dataSource.query(
+          `TRUNCATE ${tableNames} RESTART IDENTITY CASCADE;`,
+        );
+      }
+    } catch (error) {
+      console.warn('Warning during database cleanup:', error);
+    }
+  }
+};
+
 // Jest lifecycle hooks
 beforeAll(async () => {
   const originalConsoleError = console.error;
@@ -43,39 +62,21 @@ beforeAll(async () => {
   };
 
   await initializeTestDatabase();
-
-  if (dataSource.isInitialized) {
-    try {
-      const entities = dataSource.entityMetadatas;
-      if (entities.length > 0) {
-        const tableNames = entities
-          .map((entity) => `"${entity.tableName}"`)
-          .join(', ');
-
-        await dataSource.query(
-          `TRUNCATE ${tableNames} RESTART IDENTITY CASCADE;`,
-        );
-      }
-    } catch (error) {
-      console.warn('Warning during pre-suite cleanup:', error);
-    }
-  }
+  await cleanDatabase();
 }, 60000);
+
+beforeEach(async () => {
+  await cleanDatabase();
+}, 30000);
+
+afterEach(async () => {
+  await cleanDatabase();
+}, 30000);
 
 afterAll(async () => {
   try {
     if (dataSource.isInitialized) {
-      const entities = dataSource.entityMetadatas;
-      if (entities.length > 0) {
-        const tableNames = entities
-          .map((entity) => `"${entity.tableName}"`)
-          .join(', ');
-
-        await dataSource.query(
-          `TRUNCATE ${tableNames} RESTART IDENTITY CASCADE;`,
-        );
-      }
-
+      await cleanDatabase();
       if (process.env.JEST_WORKER_ID === undefined) {
         await dataSource.destroy();
         console.log('Test database connection closed');

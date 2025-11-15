@@ -19,10 +19,10 @@ describe('MockedAIService', () => {
       const result = await service.generateText('Tell me a story');
 
       expect(result).toContain(
-        'Era uma vez, em um reino distante chamado Eldoria',
+        'Once upon a time, in a distant kingdom called Eldoria',
       );
-      expect(result).toContain('Cristal da Harmonia');
-      expect(result).toContain('princesa Lyra');
+      expect(result).toContain('Crystal of Harmony');
+      expect(result).toContain('Princess Lyra');
     });
 
     it('should return choices JSON when prompt contains "choice"', async () => {
@@ -33,8 +33,8 @@ describe('MockedAIService', () => {
       const choices = JSON.parse(result);
       expect(choices).toHaveLength(4);
       expect(choices[0]).toEqual({
-        text: 'Partir imediatamente para a Floresta Sombria',
-        description: 'Seguir a primeira pista do pergaminho sem demora',
+        text: 'Depart immediately for the Dark Forest',
+        description: 'Follow the first clue from the scroll without delay',
         type: 'action',
       });
     });
@@ -47,9 +47,9 @@ describe('MockedAIService', () => {
       const choices = JSON.parse(result);
       expect(choices).toHaveLength(4);
       expect(choices[1]).toEqual({
-        text: 'Reunir mais informações na biblioteca',
+        text: 'Gather more information in the library',
         description:
-          'Pesquisar mais sobre o Cristal da Harmonia antes de partir',
+          'Research more about the Crystal of Harmony before departing',
         type: 'exploration',
       });
     });
@@ -58,10 +58,10 @@ describe('MockedAIService', () => {
       const result = await service.generateText('Continue the story');
 
       expect(result).toContain(
-        'Era uma vez, em um reino distante chamado Eldoria',
+        'Once upon a time, in a distant kingdom called Eldoria',
       );
       expect(result).toContain(
-        'A história continua com novos desenvolvimentos emocionantes...',
+        'The story continues with new exciting developments...',
       );
     });
 
@@ -69,10 +69,10 @@ describe('MockedAIService', () => {
       const result = await service.generateText('Continuar a história');
 
       expect(result).toContain(
-        'Era uma vez, em um reino distante chamado Eldoria',
+        'Once upon a time, in a distant kingdom called Eldoria',
       );
       expect(result).toContain(
-        'A história continua com novos desenvolvimentos emocionantes...',
+        'The story continues with new exciting developments...',
       );
     });
 
@@ -84,10 +84,10 @@ describe('MockedAIService', () => {
       });
 
       expect(result).toContain(
-        'Era uma vez, em um reino distante chamado Eldoria',
+        'Once upon a time, in a distant kingdom called Eldoria',
       );
-      expect(result).toContain('Cristal da Harmonia');
-      expect(result).toContain('princesa Lyra');
+      expect(result).toContain('Crystal of Harmony');
+      expect(result).toContain('Princess Lyra');
     });
   });
 

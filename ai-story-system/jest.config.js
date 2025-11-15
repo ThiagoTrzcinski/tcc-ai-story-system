@@ -3,8 +3,9 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
 
-  // Test file patterns - similar to Vitest's include
+  // Test file patterns - ONLY unit tests (exclude e2e tests)
   testMatch: ['**/*.spec.ts'],
+  testPathIgnorePatterns: ['/node_modules/', '/dist/', '**/*.e2e.spec.ts'],
 
   // Root directory
   rootDir: './',
@@ -54,7 +55,4 @@ module.exports = {
 
   // Error handling
   errorOnDeprecated: true,
-
-  // Ignore patterns
-  testPathIgnorePatterns: ['/node_modules/', '/dist/'],
 };
