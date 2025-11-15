@@ -838,13 +838,4 @@ O desenvolvimento deste TCC proporcionou aprendizado prático e teórico em múl
 
 ---
 
-## 14. Informações do Autor
-
-**Nome:** Thiago Trzcinski<br>
-**Email:** [thiagotrzcinski7878@gmail.com]<br>
-**LinkedIn:** [linkedin.com/in/thiago-trzcinski]<br>
-**GitHub:** [github.com/thiago-trzcinski]
-
----
-
 **Trabalho de Conclusão de Curso - 2025**
