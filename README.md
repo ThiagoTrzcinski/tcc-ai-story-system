@@ -447,6 +447,25 @@ A arquitetura do sistema foi projetada para suportar múltiplos provedores de IA
 
 ### 8.1 Schema do Banco de Dados
 
+#### Tabela: users
+
+```sql
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW(),
+    last_login_at TIMESTAMP,
+    email_verified_at TIMESTAMP,
+    deleted_at TIMESTAMP
+);
+```
+
+**Descrição:** Armazena dados de autenticação e perfil dos usuários do sistema. O campo `is_active` permite desativar contas sem deletá-las, enquanto `deleted_at` implementa soft delete.
+
 #### Tabela: stories
 
 ```sql
@@ -454,20 +473,22 @@ CREATE TABLE stories (
     id UUID PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT,
-    genre VARCHAR(50) NOT NULL,
+    genre story_genre_enum NOT NULL,
     user_id INTEGER NOT NULL,
-    status VARCHAR(50) NOT NULL,
-    prompts JSONB DEFAULT '[]',
-    settings JSONB DEFAULT '{}',
+    status story_status_enum NOT NULL DEFAULT 'draft',
+    prompts TEXT[],
+    settings JSONB NOT NULL DEFAULT '{"AIModel": "gpt-4"}',
     current_content_id UUID,
-    total_choices_made INTEGER DEFAULT 0,
+    total_choices_made INTEGER NOT NULL DEFAULT 0,
     estimated_reading_time INTEGER,
-    created_at TIMESTAMP DEFAULT NOW(),
-    updated_at TIMESTAMP DEFAULT NOW(),
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
     deleted_at TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 ```
+
+**Descrição:** Armazena metadados das narrativas interativas criadas pelos usuários. O campo `prompts` é um array de instruções textuais para a IA, `settings` armazena configurações personalizadas (como modelo de IA), e `genre` e `status` são tipos enumerados para garantir consistência. O campo `deleted_at` implementa soft delete.
 
 #### Tabela: story_content
 
@@ -475,16 +496,18 @@ CREATE TABLE stories (
 CREATE TABLE story_content (
     id UUID PRIMARY KEY,
     story_id UUID NOT NULL,
-    content_type VARCHAR(50) NOT NULL,
-    text_content TEXT,
+    text_content TEXT NOT NULL,
+    sequence INTEGER NOT NULL,
     image_url VARCHAR(500),
     audio_url VARCHAR(500),
-    metadata JSONB DEFAULT '{}',
-    order_index INTEGER NOT NULL,
-    created_at TIMESTAMP DEFAULT NOW(),
+    has_choices BOOLEAN NOT NULL DEFAULT false,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
     FOREIGN KEY (story_id) REFERENCES stories(id) ON DELETE CASCADE
 );
 ```
+
+**Descrição:** Armazena segmentos individuais de narrativa multimodal. O campo `sequence` define a ordem dos segmentos, `has_choices` indica se o segmento oferece escolhas interativas ao usuário, e `updated_at` registra a última modificação do conteúdo.
 
 #### Tabela: story_choices
 
@@ -492,31 +515,24 @@ CREATE TABLE story_content (
 CREATE TABLE story_choices (
     id UUID PRIMARY KEY,
     story_id UUID NOT NULL,
-    content_id UUID NOT NULL,
-    choice_type VARCHAR(50) NOT NULL,
-    text VARCHAR(500) NOT NULL,
+    parent_content_id UUID NOT NULL,
+    text VARCHAR(200) NOT NULL,
+    description TEXT NOT NULL DEFAULT '',
+    type choice_type_enum NOT NULL,
+    sequence INTEGER NOT NULL,
     next_content_id UUID,
-    consequences JSONB DEFAULT '{}',
-    is_selected BOOLEAN DEFAULT FALSE,
-    order_index INTEGER NOT NULL,
-    created_at TIMESTAMP DEFAULT NOW(),
+    is_available BOOLEAN NOT NULL DEFAULT true,
+    is_selected BOOLEAN NOT NULL DEFAULT false,
+    selected_at TIMESTAMP,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
     FOREIGN KEY (story_id) REFERENCES stories(id) ON DELETE CASCADE,
-    FOREIGN KEY (content_id) REFERENCES story_content(id) ON DELETE CASCADE
+    FOREIGN KEY (parent_content_id) REFERENCES story_content(id) ON DELETE CASCADE,
+    FOREIGN KEY (next_content_id) REFERENCES story_content(id) ON DELETE SET NULL
 );
 ```
 
-#### Tabela: users
-
-```sql
-CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    username VARCHAR(100) UNIQUE NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT NOW(),
-    updated_at TIMESTAMP DEFAULT NOW()
-);
-```
+**Descrição:** Armazena pontos de decisão interativos que direcionam o fluxo narrativo. O campo `parent_content_id` referencia o segmento que oferece a escolha, `description` fornece detalhes adicionais sobre a escolha, `type` categoriza o tipo de decisão, `next_content_id` permite ramificação narrativa apontando para o próximo segmento, e `is_available` permite desabilitar escolhas dinamicamente.
 
 ### 8.2 Relacionamentos
 
@@ -527,43 +543,108 @@ stories (1) ─────< (N) story_choices
 story_content (1) ──< (N) story_choices
 ```
 
-### 8.3 Enumerações
+### 8.3 Enumerações (ENUMs do PostgreSQL)
 
-**StoryStatus:**
+#### story_status_enum
 
-- `DRAFT`: História em criação
-- `IN_PROGRESS`: História sendo jogada
-- `COMPLETED`: História finalizada
-- `PUBLISHED`: História publicada para outros
-- `ARCHIVED`: História arquivada
+Estados do ciclo de vida de uma história:
 
-**StoryGenre:**
+- `draft`: História em criação/rascunho
+- `in_progress`: História sendo jogada pelo usuário
+- `completed`: História finalizada
+- `published`: História publicada para outros usuários
+- `archived`: História arquivada
+- `deleted`: História marcada como deletada
 
-- `FANTASY`: Fantasia
-- `SCI_FI`: Ficção Científica
-- `MYSTERY`: Mistério
-- `ROMANCE`: Romance
-- `HORROR`: Terror
-- `ADVENTURE`: Aventura
-- `THRILLER`: Suspense
-- `HISTORICAL`: Histórico
-- `CUSTOM`: Personalizado
+#### story_genre_enum
 
-**ContentType:**
+Gêneros literários disponíveis para classificação das histórias:
 
-- `TEXT`: Conteúdo textual
-- `IMAGE`: Imagem
-- `AUDIO`: Áudio/Narração
-- `COMBINED`: Múltiplos tipos
+- `fantasy`: Fantasia
+- `science_fiction`: Ficção Científica
+- `mystery`: Mistério
+- `thriller`: Suspense/Thriller
+- `romance`: Romance
+- `horror`: Terror/Horror
+- `adventure`: Aventura
+- `drama`: Drama
+- `comedy`: Comédia
+- `historical`: Histórico
+- `western`: Faroeste
+- `crime`: Crime/Policial
+- `supernatural`: Sobrenatural
+- `dystopian`: Distópico
+- `steampunk`: Steampunk
+- `cyberpunk`: Cyberpunk
+- `urban_fantasy`: Fantasia Urbana
+- `slice_of_life`: Slice of Life
+- `coming_of_age`: Coming of Age
+- `custom`: Personalizado
 
-**ChoiceType:**
+#### choice_type_enum
 
-- `NARRATIVE`: Escolha narrativa
-- `DIALOGUE`: Escolha de diálogo
-- `ACTION`: Escolha de ação
-- `MORAL`: Dilema moral
-- `EXPLORATION`: Exploração
-- `CUSTOM`: Personalizado
+Tipos de escolhas interativas oferecidas ao usuário:
+
+- `narrative`: Escolha que afeta o rumo da narrativa
+- `dialogue`: Escolha de diálogo/conversa
+- `action`: Escolha de ação física
+- `moral`: Dilema moral/ético
+- `strategic`: Decisão estratégica
+- `exploration`: Exploração de ambiente
+- `relationship`: Interação com personagens
+- `skill_check`: Teste de habilidade
+- `inventory`: Gerenciamento de inventário
+- `ending`: Escolha que determina o final da história
+
+### 8.4 Índices e Constraints
+
+#### Índices de Performance
+
+O banco de dados utiliza índices estratégicos para otimizar consultas frequentes:
+
+**users:**
+
+- `IDX_users_email` (email) - Buscar usuários por email
+- `IDX_users_is_active` (is_active) - Filtrar usuários ativos
+- `IDX_users_email_verified_at` (email_verified_at) - Filtrar por verificação de email
+- `IDX_users_last_login_at` (last_login_at) - Ordenação por último login
+- `IDX_users_created_at` (created_at) - Ordenação temporal
+- `IDX_users_deleted_at` (deleted_at) - Filtrar soft deletes
+
+**stories:**
+
+- `IDX_stories_user` (user_id) - Buscar histórias por usuário
+- `IDX_stories_status` (status) - Filtrar por status
+- `IDX_stories_genre` (genre) - Filtrar por gênero
+- `IDX_stories_created_at`, `IDX_stories_updated_at` - Ordenação temporal
+- `IDX_stories_deleted_at` (deleted_at) - Filtrar soft deletes
+- `IDX_stories_settings_aimodel` ((settings->>'AIModel')) - Filtrar por modelo de IA (índice JSONB)
+
+**story_content:**
+
+- `IDX_story_content_story_sequence` (story_id, sequence) - **UNIQUE** - Garante sequência única por história
+- `IDX_story_content_has_choices` (has_choices) - Filtrar conteúdos com escolhas
+- `IDX_story_content_updated_at` (updated_at) - Ordenação por última atualização
+
+**story_choices:**
+
+- `IDX_story_choices_content_sequence` (parent_content_id, sequence) - **UNIQUE** - Garante sequência única por conteúdo
+- `IDX_story_choices_availability` (is_available, is_selected) - Filtrar escolhas disponíveis/selecionadas
+- `IDX_story_choices_updated_at` (updated_at) - Ordenação por última atualização
+
+#### Constraints de Validação
+
+```sql
+-- stories
+CHECK (total_choices_made >= 0)
+CHECK (estimated_reading_time IS NULL OR estimated_reading_time > 0)
+
+-- story_content
+CHECK (sequence > 0)
+
+-- story_choices
+CHECK (sequence > 0)
+```
 
 ---
 
